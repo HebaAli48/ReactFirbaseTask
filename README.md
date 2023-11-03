@@ -55,3 +55,8 @@ ui: Reusable UI components.
 utils: Utility functions and icons.
 
 ## images from task
+![login](https://github.com/HebaAli48/ReactFirbaseTask/assets/131808003/e7b12748-f53c-47a4-874d-8415664958f4)
+
+![sign-up](https://github.com/HebaAli48/ReactFirbaseTask/assets/131808003/d86b5e3b-f786-4f9e-affe-bb1fc911fb9a)
+
+![home](https://github.com/HebaAli48/ReactFirbaseTask/assets/131808003/aa6a611d-cbe7-4956-b098-b0e6c7ca28c9)
