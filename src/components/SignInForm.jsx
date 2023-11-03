@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
-import Button from "../ui/Button";
-import signInSchema from "../models/SignInSchema";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
+import Button from "../ui/Button";
+
+import signInSchema from "../models/SignInSchema";
 import signInImg from "../assets/images/login.png";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../fireBase/FireBaseConfigs";
@@ -32,6 +34,8 @@ const SignInForm = () => {
           const Token = userCredential.user.accessToken;
           localStorage.setItem("Token", Token);
           setIsLoggedIn(true);
+          toast.success("Login Sucessfull 😊");
+
           // Navigate to the desired route
           navigate("/", { replace: true });
         }
@@ -66,7 +70,7 @@ const SignInForm = () => {
                       htmlFor="email"
                       className="block mb-2 text-sm font-medium text-gray-900 "
                     >
-                      Your email
+                      Your email *
                     </label>
                     <input
                       type="email"
@@ -87,7 +91,7 @@ const SignInForm = () => {
                       htmlFor="password"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                      Password
+                      Password *
                     </label>
                     <input
                       type="password"

@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import Button from "../ui/Button";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
+
 import signupImg from "../assets/images/Sign up-amico.png";
 import signUpSchema from "../models/SignUpSchema";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../fireBase/FireBaseConfigs";
-import { useNavigate } from "react-router";
+
 const SignUpForm = () => {
   const navigate = useNavigate();
   const [errorMsg, setErrorMsg] = useState(null); // State to store and display error message
@@ -24,6 +27,8 @@ const SignUpForm = () => {
     console.log(data);
     try {
       await createUserWithEmailAndPassword(auth, email, password, userName);
+      toast.success("Sign Up Sucessfull 😊");
+
       navigate("/sign-in");
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
@@ -57,7 +62,7 @@ const SignUpForm = () => {
                       htmlFor="userName"
                       className="block mb-2 text-sm font-medium text-gray-900 "
                     >
-                      user name
+                      user name *
                     </label>
                     <input
                       type="text"
@@ -78,7 +83,7 @@ const SignUpForm = () => {
                       htmlFor="email"
                       className="block mb-2 text-sm font-medium text-gray-900 "
                     >
-                      Your email
+                      Your email *
                     </label>
                     <input
                       type="email"
@@ -99,7 +104,7 @@ const SignUpForm = () => {
                       htmlFor="password"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                      Password
+                      Password *
                     </label>
                     <input
                       type="password"
@@ -121,7 +126,7 @@ const SignUpForm = () => {
                       htmlFor="confirmPassword"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                      Confirm Password
+                      Confirm Password *
                     </label>
                     <input
                       type="password"

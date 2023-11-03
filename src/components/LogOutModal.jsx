@@ -19,14 +19,14 @@ const LogOutModal = () => {
       await signOut(auth);
 
       // setIsLoggedIn(false);
-      toast.success("you are Sign-out correctly");
+      toast.success("you are Signing Out Sucessfully");
       localStorage.removeItem("Token");
       localStorage.removeItem("refreshToken");
       navigate("/sign-in", { replace: true });
       setIsLoggedIn(false);
     } catch (error) {
       console.log(error);
-      toast.error("Sign-out An error happened.");
+      toast.error(" An error Occured during Signing Out , Try again Later.");
     }
   };
 
