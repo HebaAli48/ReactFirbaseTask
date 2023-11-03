@@ -66,7 +66,7 @@ const FileUpload = () => {
     <div className="flex flex-col  py-10">
       <form
         onSubmit={handleSubmit(onSubmitHandler)}
-        className="flex justify-center items-center gap-10"
+        className="flex flex-col sm:flex-row justify-start sm:justify-center sm:items-center gap-5 sm:gap-10"
       >
         <div className="flex flex-col gap-1 items-start">
           <label
@@ -83,7 +83,7 @@ const FileUpload = () => {
               setImageUpload(event.target.files[0]);
             }}
             placeholder="SVG, PNG, JPG or GIF (MAX: 1MB)"
-            className="block w-[50vw] text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none "
+            className="block w-full sm:w-[50vw] text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none "
           />
           <p
             className="mt-1 ps-1 text-sm text-gray-500 dark:text-gray-300"
