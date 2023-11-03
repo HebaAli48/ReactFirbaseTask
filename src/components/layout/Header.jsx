@@ -38,7 +38,7 @@ const Header = () => {
         {/* collapse button  */}
         <button
           onClick={() => setIsCollapsed((prev) => !prev)}
-          className="block items-center px-3 py-2 border rounded text-cyan-200 border-cyan-400 hover:text-white hover:border-white ms-2 sm:hidden order-9"
+          className="block items-center px-3 py-2 border rounded text-cyan-200 border-blue-400 hover:border-slate-300 hover:text-white hover:border-white ms-2 sm:hidden order-9"
         >
           {Menu}
         </button>
