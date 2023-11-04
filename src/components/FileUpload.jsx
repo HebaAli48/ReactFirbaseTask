@@ -117,10 +117,15 @@ const FileUpload = () => {
         {!isLoaded && <div>loading...</div>}
 
         {imageUrls.length > 0 && isLoaded ? (
-          <div className="mt-10 ">
-            {imageUrls.map((url) => {
+          <div className="mt-10  ">
+            {imageUrls.map((url, index) => {
               return (
-                <img key={url} src={url} alt="Uploaded" className="mx-auto " />
+                <img
+                  key={url}
+                  src={url}
+                  alt={`Image${index}`}
+                  className="mx-auto max-w-[400px]"
+                />
               );
             })}
           </div>
