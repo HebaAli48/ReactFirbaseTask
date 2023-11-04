@@ -1,3 +1,4 @@
+// HOC for button
 import React from "react";
 
 const Button = ({ children, className = "", onClick, type = "button" }) => {

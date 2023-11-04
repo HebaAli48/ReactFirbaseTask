@@ -5,24 +5,37 @@ import { Menu } from "../../utils/Icons";
 import LogOutModal from "../LogOutModal";
 import { LogInContext } from "../../utils/LogInContext";
 const Header = () => {
+  // State variable to control the collapsed state of the navigation menu
   const [isCollapsed, setIsCollapsed] = useState(true);
+
+  // Access the navigation function from React Router
   const navigate = useNavigate();
+
+  // Access user login status and login function from context
   const { isLoggedIn, setIsLoggedIn } = useContext(LogInContext);
+
+  // Use effect to check if a token exists in local storage for authentication
   useEffect(() => {
+    // Check for the presence of a token in local storage
     const token = localStorage.getItem("Token");
+
     if (!token) {
+      // If no token is found, navigate to the sign-in page and set isLoggedIn to false
       navigate("/sign-in", { replace: true });
       setIsLoggedIn(false);
     } else {
+      // If a token is found, set isLoggedIn to true
       setIsLoggedIn(true);
     }
   }, [isLoggedIn]);
 
+  // Array containing navigation menu items with title and corresponding routes
   const headerData = [
     { title: "Home", to: "/" },
     { title: "About", to: "/About" },
     { title: "Support", to: "/Support" },
   ];
+
   return (
     <nav
       className={`bg-blue-600 text-[white] border-b border-blue-600    ${

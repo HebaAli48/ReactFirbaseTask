@@ -9,11 +9,15 @@ import NoImageFounded from "../assets/images/no-document-or-data-found-ui-illust
 import FileUploadSchema from "../models/FileUploadSchema";
 import Button from "../ui/Button";
 const FileUpload = () => {
+  // State variables to manage image uploads, URLs, and loading status
   const [imageUpload, setImageUpload] = useState(null);
   const [imageUrls, setImageUrls] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false); // Add a flag
+  const [isLoaded, setIsLoaded] = useState(false); // Flag to track whether images are loaded
 
+  // Reference to the Firebase storage location where images are stored
   const imagesListRef = ref(storage, "images/");
+
+  // Form validation setup using react-hook-form
   const {
     register,
     handleSubmit,
@@ -24,10 +28,14 @@ const FileUpload = () => {
   } = useForm({
     resolver: yupResolver(FileUploadSchema),
   });
+
+  // Function to handle image upload
   const onSubmitHandler = () => {
     try {
-      if (imageUpload == null) return;
+      if (imageUpload == null) return; // Ensure an image is selected
       const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+
+      // Initiate the image upload task
       const uploadTask = uploadBytes(imageRef, imageUpload);
       toast.success("Image Upload Started");
 
@@ -35,7 +43,10 @@ const FileUpload = () => {
       uploadTask
         .then((snapshot) => {
           toast.success("Image Uploaded Successfully");
+
+          // Retrieve the download URL of the uploaded image
           getDownloadURL(snapshot.ref).then((url) => {
+            // Update the list of image URLs
             setImageUrls((prev) => [...prev, url]);
           });
         })
@@ -49,11 +60,13 @@ const FileUpload = () => {
     }
   };
 
+  // Fetch image URLs from Firebase Storage and update state
   useEffect(() => {
     if (!isLoaded) {
       listAll(imagesListRef).then((response) => {
         response.items.forEach((item) => {
           getDownloadURL(item).then((url) => {
+            // Update the list of image URLs
             setImageUrls((prev) => [...prev, url]);
           });
         });

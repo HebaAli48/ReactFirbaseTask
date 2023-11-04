@@ -11,8 +11,11 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../fireBase/FireBaseConfigs";
 
 const SignUpForm = () => {
+  // Hook for navigating to different pages
   const navigate = useNavigate();
+  // State to store and display error message
   const [errorMsg, setErrorMsg] = useState(null); // State to store and display error message
+  // Hook for managing form submission
   const {
     register,
     handleSubmit,
@@ -20,20 +23,27 @@ const SignUpForm = () => {
     reset,
     setError,
   } = useForm({
-    resolver: yupResolver(signUpSchema),
+    resolver: yupResolver(signUpSchema), // Using the yup schema for form validation
   });
+  // Function to handle form submission
   const onSubmitHandler = async (data) => {
+    // Extracting user data from the form
     const { userName, email, password } = data;
-    console.log(data);
+    // console.log(data);
     try {
+      // Create a new user account in Firebase Authentication
       await createUserWithEmailAndPassword(auth, email, password, userName);
-      toast.success("Sign Up Sucessfull 😊");
 
+      // Show a success message
+      toast.success("Sign Up Sucessfull 😊");
+      // Navigate to the sign-in page
       navigate("/sign-in");
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
+        // If the email is already in use, display an error message
         setErrorMsg("Email already exists. Please use a different email.");
       } else {
+        // Display the error message for other errors
         setErrorMsg(error.message);
       }
     }

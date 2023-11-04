@@ -7,6 +7,7 @@ import Footer from "./Footer";
 // import Loader from "../ui/Loader";
 
 const AppLayout = () => {
+  // State variable to track loading state
   const [isLoading, setIsLoading] = useState(false);
 
   return (

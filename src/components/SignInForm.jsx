@@ -12,9 +12,12 @@ import { useNavigate } from "react-router";
 import { LogInContext } from "../utils/LogInContext";
 
 const SignInForm = () => {
-  const navigate = useNavigate();
-  const { isLoggedIn, setIsLoggedIn } = useContext(LogInContext);
+  // Hook for navigating to different pages
 
+  const navigate = useNavigate();
+  // Context to manage the user login state
+  const { isLoggedIn, setIsLoggedIn } = useContext(LogInContext);
+  // Hook for managing form submission
   const {
     register,
     handleSubmit,
@@ -22,27 +25,32 @@ const SignInForm = () => {
     reset,
     setError,
   } = useForm({
-    resolver: yupResolver(signInSchema),
+    resolver: yupResolver(signInSchema), // Using the yup schema for form validation
   });
-
+  // Function to handle form submission
   const onSubmitHandler = async (data) => {
+    // Extracting user data from the form
     const { email, password } = data;
     try {
+      // Sign in to the user account in Firebase Authentication
       await signInWithEmailAndPassword(auth, email, password).then(
         (userCredential) => {
-          // Signed in
+          // Successfully signed in
           const Token = userCredential.user.accessToken;
+          // Store the user's access token in localStorage
           localStorage.setItem("Token", Token);
           setIsLoggedIn(true);
+          // Display a success toast message
           toast.success("Login Sucessfull 😊");
 
-          // Navigate to the desired route
+          // Navigate to home Page
           navigate("/", { replace: true });
         }
       );
     } catch (error) {
-      setIsLoggedIn(false);
-      setError(error.code);
+      // If there is an error during sign-in
+      setIsLoggedIn(false); // Set the user as not logged in
+      setError(error.code); // Set an error code to be displayed in the component
     }
   };
   return (

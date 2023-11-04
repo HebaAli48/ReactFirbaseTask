@@ -1,3 +1,4 @@
+// imports
 import { Suspense, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
@@ -10,7 +11,9 @@ import AppLayout from "./components/layout/AppLayout";
 import { LogInContext } from "./utils/LogInContext";
 
 function App() {
+  // Define a state variable `isLoggedIn` to manage user login status.
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <LogInContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
       <Routes>
@@ -20,6 +23,7 @@ function App() {
             <AppLayout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
           }
         >
+          {/* Define a route for the home page */}
           <Route
             index
             element={
@@ -28,6 +32,8 @@ function App() {
               </Suspense>
             }
           />
+
+          {/* Define a route for the sign-in page */}
           <Route
             path="sign-in"
             element={
@@ -36,6 +42,8 @@ function App() {
               </Suspense>
             }
           />
+
+          {/* Define a route for the sign-up page */}
           <Route
             path="sign-up"
             element={
