@@ -32,8 +32,8 @@ const Header = () => {
   // Array containing navigation menu items with title and corresponding routes
   const headerData = [
     { title: "Home", to: "/" },
-    { title: "About", to: "/About" },
-    { title: "Support", to: "/Support" },
+    { title: "About", to: "/" },
+    { title: "Support", to: "/" },
   ];
 
   return (
