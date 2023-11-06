@@ -7,13 +7,13 @@ const Footer = () => {
     <footer className="footer footer-center p-10 bg-blue-600  text-white border-t-[3px] border-blue-600">
       <div className="flex  justify-center gap-8">
         <span className="link link-hover">
-          <Link to="/about" className="hover:border-b-2 border-white py-1">
-            About us
+          <Link to="/" className="hover:border-b-2 border-white py-1">
+            About
           </Link>{" "}
         </span>
         <span className="link link-hover">
-          <Link to="/support" className="hover:border-b-2 border-white py-1">
-            Contact
+          <Link to="/" className="hover:border-b-2 border-white py-1">
+            Contact Us
           </Link>
         </span>
       </div>
