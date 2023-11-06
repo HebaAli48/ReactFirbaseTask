@@ -86,19 +86,6 @@ const FileUpload = () => {
     }
   }, [isLoaded, imageUrls]);
 
-  // useEffect(() => {
-  //   if (!isLoaded) {
-  //     listAll(imagesListRef).then((response) => {
-  //       response.items.forEach((item) => {
-  //         getDownloadURL(item).then((url) => {
-  //           // Update the list of image URLs
-  //           setImageUrls((prev) => [...prev, url]);
-  //         });
-  //       });
-  //       setIsLoaded(true); // Set the flag to true after loading images
-  //     });
-  //   }
-  // }, [isLoaded, imageUrls]);
   return (
     <div className="flex flex-col  py-10">
       <form
@@ -148,7 +135,7 @@ const FileUpload = () => {
                   key={url}
                   src={url}
                   alt={`Image${index}`}
-                  className="mx-auto max-w-[400px]"
+                  className="mx-auto w-[60vw] mb-5"
                 />
               );
             })}
