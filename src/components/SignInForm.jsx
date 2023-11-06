@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
@@ -17,6 +17,8 @@ const SignInForm = () => {
   const navigate = useNavigate();
   // Context to manage the user login state
   const { isLoggedIn, setIsLoggedIn } = useContext(LogInContext);
+  // State to store and display error message
+  const [errorMsg, setErrorMsg] = useState(null); // State to store and display error message
   // Hook for managing form submission
   const {
     register,
@@ -36,9 +38,13 @@ const SignInForm = () => {
       await signInWithEmailAndPassword(auth, email, password).then(
         (userCredential) => {
           // Successfully signed in
+          // console.log(userCredential.user.uid);
           const Token = userCredential.user.accessToken;
+          const UserID = userCredential.user.uid;
           // Store the user's access token in localStorage
           localStorage.setItem("Token", Token);
+          localStorage.setItem("UserID", UserID);
+
           setIsLoggedIn(true);
           // Display a success toast message
           toast.success("Login Sucessfull 😊");
@@ -48,9 +54,15 @@ const SignInForm = () => {
         }
       );
     } catch (error) {
+      if (error.code === "auth/invalid-login-credentials") {
+        setErrorMsg("invalid-login-credentials, Please try again."); // Set an error code to be displayed in the component
+      } else if (error.code === "auth/wrong-password") {
+        setErrorMsg("invalid-login-credentials, Please try again."); // Set an error code to be displayed in the component
+      } else {
+        setErrorMsg("Login failed. Please try again."); // Set an error code to be displayed in the component
+      }
       // If there is an error during sign-in
       setIsLoggedIn(false); // Set the user as not logged in
-      setError(error.code); // Set an error code to be displayed in the component
     }
   };
   return (
@@ -114,7 +126,7 @@ const SignInForm = () => {
                       {errors.password?.message}
                     </p>
                     <p className="text-red-500 mx-auto lg:text-base  sm:text-sm text-[10px]">
-                      {errors.error?.message}
+                      {errorMsg}
                     </p>
                   </div>
                   <div className="flex items-center justify-between">

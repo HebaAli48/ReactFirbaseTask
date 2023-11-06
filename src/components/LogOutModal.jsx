@@ -29,6 +29,7 @@ const LogOutModal = () => {
 
       // Remove user tokens from local storage
       localStorage.removeItem("Token");
+      localStorage.removeItem("UserID");
       localStorage.removeItem("refreshToken");
 
       // Navigate to the sign-in page and update the login state

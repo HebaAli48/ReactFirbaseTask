@@ -33,7 +33,12 @@ const FileUpload = () => {
   const onSubmitHandler = () => {
     try {
       if (imageUpload == null) return; // Ensure an image is selected
-      const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+      const UserID = localStorage.getItem("UserID"); // Retrieve the user's token from local storage
+
+      const imageRef = ref(
+        storage,
+        `images/${UserID}/${imageUpload.name + v4()}`
+      );
 
       // Initiate the image upload task
       const uploadTask = uploadBytes(imageRef, imageUpload);
@@ -63,18 +68,37 @@ const FileUpload = () => {
   // Fetch image URLs from Firebase Storage and update state
   useEffect(() => {
     if (!isLoaded) {
-      listAll(imagesListRef).then((response) => {
-        response.items.forEach((item) => {
-          getDownloadURL(item).then((url) => {
-            // Update the list of image URLs
-            setImageUrls((prev) => [...prev, url]);
+      const UserID = localStorage.getItem("UserID"); // Retrieve the user's ID from local storage
+
+      if (UserID) {
+        const userImagesListRef = ref(storage, `images/${UserID}`);
+
+        listAll(userImagesListRef).then((response) => {
+          response.items.forEach((item) => {
+            getDownloadURL(item).then((url) => {
+              // Update the list of image URLs
+              setImageUrls((prev) => [...prev, url]);
+            });
           });
+          setIsLoaded(true); // Set the flag to true after loading images
         });
-        setIsLoaded(true); // Set the flag to true after loading images
-      });
+      }
     }
   }, [isLoaded, imageUrls]);
 
+  // useEffect(() => {
+  //   if (!isLoaded) {
+  //     listAll(imagesListRef).then((response) => {
+  //       response.items.forEach((item) => {
+  //         getDownloadURL(item).then((url) => {
+  //           // Update the list of image URLs
+  //           setImageUrls((prev) => [...prev, url]);
+  //         });
+  //       });
+  //       setIsLoaded(true); // Set the flag to true after loading images
+  //     });
+  //   }
+  // }, [isLoaded, imageUrls]);
   return (
     <div className="flex flex-col  py-10">
       <form
